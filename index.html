@@ -76,26 +76,86 @@
         newTodo: { state: true },
       };
 
-      constructor() {
-        super();
-        this.todos = [
-          { text: 'Buy groceries', completed: false },
-          { text: 'Walk the dog', completed: true },
-        ];
+			constructor() {
+    super();
+    this.todos = []; // Start with an empty array
+    this.newTodo = '';
+    this.db = null;
+    this.initDB(); // Initialize IndexedDB
+  }
+
+  initDB() {
+    const request = indexedDB.open('todoDB', 1);
+
+    request.onerror = (event) => {
+      console.error('Error opening database:', event.target.error);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      const objectStore = db.createObjectStore('todos', { keyPath: 'id', autoIncrement: true });
+      objectStore.createIndex('text', 'text', { unique: false });
+    };
+
+    request.onsuccess = (event) => {
+      this.db = event.target.result;
+      this.loadTodos(); // Load existing todos from the database
+    };
+  }
+
+  loadTodos() {
+		console.log("loadTodos");
+    const transaction = this.db.transaction(['todos'], 'readonly');
+    const objectStore = transaction.objectStore('todos');
+    const request = objectStore.getAll();
+
+    request.onsuccess = (event) => {
+			this.todos = event.target.result;
+			console.log(this.todos);
+    };
+
+    request.onerror = (event) => {
+      console.error('Error loading todos:', event.target.error);
+    };
+  }
+
+  addTodo() {
+    if (this.newTodo) {
+      const newTodo = { 
+        text: this.newTodo, 
+        completed: false, 
+        timestamp: Date.now() // Add timestamp
+      };
+
+      const transaction = this.db.transaction(['todos'], 'readwrite');
+      const objectStore = transaction.objectStore('todos');
+      const request = objectStore.add(newTodo);
+
+      request.onsuccess = () => {
+        this.loadTodos(); // Refresh todos after adding
         this.newTodo = '';
-      }
+      };
 
-      addTodo() {
-        if (this.newTodo) {
-          this.todos = [...this.todos, { text: this.newTodo, completed: false }];
-          this.newTodo = '';
-        }
-      }
+      request.onerror = (event) => {
+        console.error('Error adding todo:', event.target.error);
+      };
+    }
+  }
 
-      deleteTodo(index) {
-				console.log("deleteTodo", index);
-        this.todos = this.todos.filter((_, i) => i !== index);
-      }
+  deleteTodo(id) {
+		console.log("deleteTodo", id);
+    const transaction = this.db.transaction(['todos'], 'readwrite');
+    const objectStore = transaction.objectStore('todos');
+    const request = objectStore.delete(id);
+
+    request.onsuccess = () => {
+      this.loadTodos(); // Refresh todos after deleting
+    };
+
+    request.onerror = (event) => {
+      console.error('Error deleting todo:', event.target.error);
+    };
+  }
 
       render() {
         return html`
@@ -113,7 +173,7 @@
               ${this.todos.map((todo, index) => html`
                 <todo-item 
                   .todo=${todo} 
-                  .onDelete=${() => this.deleteTodo(index)} 
+                  .onDelete=${() => this.deleteTodo(todo.id)} 
                 ></todo-item>
               `)}
             </ul>

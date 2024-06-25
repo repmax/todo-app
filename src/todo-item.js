@@ -1,5 +1,5 @@
 // src/todo-item.js
-import { LitElement, html, css } from './lit-all.min.js';
+import { LitElement, html, css } from '../lib/lit-all.min.js';
 
 export class TodoItem extends LitElement {
     static styles = css`

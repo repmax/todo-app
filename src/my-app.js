@@ -1,5 +1,5 @@
 // src/my-app.js
-import { LitElement, html, css } from './lit-all.min.js';
+import { LitElement, html, css } from '../lib/lit-all.min.js';
 import { TodoItem } from './todo-item.js';
 
 export class MyApp extends LitElement {

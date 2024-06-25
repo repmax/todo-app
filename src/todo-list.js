@@ -1,15 +1,11 @@
 import { LitElement, html, css } from '../lib/lit-all.min.js';
 import tailwindStyles from '../lib/tailwind-styles.css' with { type: 'css' };
+import customStyles from '../lib/custom-styles.css' with { type: 'css' };
 import './todo-item.js';
 
 export class TodoList extends LitElement {
-    static styles = [tailwindStyles,
+    static styles = [tailwindStyles,customStyles,
 			css`
-        .container {
-          width: 500px;
-          margin: 0 auto;
-          font-family: sans-serif;
-        }
         input[type="text"] {
           width: 100%;
           padding: 10px;
@@ -160,7 +156,7 @@ export class TodoList extends LitElement {
             <h1 class="text-gray-500">Todo List</h1>
             <input 
               type="text" 
-              placeholder="Add a new todo..."
+              placeholder="Enter a new task..."
               .value=${this.newTodo}
               @input=${(e) => this.newTodo = e.target.value}
             >

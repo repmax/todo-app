@@ -4,8 +4,12 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/',
         '/index.html',
-        '/lit-all.min.js', // Adjust paths as needed
-        '/style.css' // Add other assets
+				'/manifest.json',
+				'/src/my-app.js',	
+				'/src/todo-list.js',
+				'/src/todo-item.js',
+        '/lib/lit-all.min.js', 
+        '/lib/tailwind-style.css'
       ]);
     })
   );

@@ -1,9 +1,11 @@
 // src/my-app.js
 import { LitElement, html, css } from '../lib/lit-all.min.js';
+import tailwindStyles from '../lib/tailwind-styles.css' with { type: 'css' };
 import './todo-item.js';
 
 export class MyApp extends LitElement {
-	static styles = css`
+    static styles = [tailwindStyles,
+			css`
         .container {
           width: 500px;
           margin: 0 auto;
@@ -16,7 +18,7 @@ export class MyApp extends LitElement {
           border: 1px solid #ccc;
           margin-bottom: 10px;
         }
-      `;
+      `];
 
 	static properties = {
 		todos: { state: true },
@@ -156,7 +158,7 @@ export class MyApp extends LitElement {
 		const hasCompletedTasks = this.todos.some(todo => todo.completed); // Check for completed tasks
 		return html`
           <div class="container">
-            <h1>Todo List</h1>
+            <h1 class="text-gray-500">Todo List</h1>
             <input 
               type="text" 
               placeholder="Add a new todo..."

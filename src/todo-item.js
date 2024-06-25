@@ -1,8 +1,10 @@
 // src/todo-item.js
 import { LitElement, html, css } from '../lib/lit-all.min.js';
+import tailwindStyles from '../lib/tailwind-styles.css' with { type: 'css' };
 
 export class TodoItem extends LitElement {
-    static styles = css`
+    static styles = [tailwindStyles,
+			css`
         .todo {
           display: flex;
           align-items: center;
@@ -19,7 +21,7 @@ export class TodoItem extends LitElement {
           cursor: pointer;
           font-size: 1.2em;
         }
-      `;
+      `];
 
     static properties = {
         todo: { type: Object, state: true },
@@ -34,7 +36,7 @@ export class TodoItem extends LitElement {
 							.checked=${this.todo.completed}
               @change=${this.parentToggleTodo}
             >
-            <span style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
+            <span class="text-red-500" style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
               ${this.todo.text}
             </span>
             <button class="delete-btn" @click=${this.parentDeleteTodo}>&times;</button> 

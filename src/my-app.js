@@ -1,6 +1,6 @@
 // src/my-app.js
 import { LitElement, html, css } from '../lib/lit-all.min.js';
-import { TodoItem } from './todo-item.js';
+import './todo-item.js';
 
 export class MyApp extends LitElement {
 	static styles = css`

@@ -22,35 +22,22 @@ export class TodoItem extends LitElement {
       `;
 
     static properties = {
-        todo: { type: Object },
-        onDelete: { type: Function },
-        db: { type: Object } 
+        todo: { type: Object, state: true },
+        parentDeleteTodo: { type: Function },
+				parentToggleTodo: { type: Function }, 
     };
-
-    toggleTodo() {
-        this.todo.completed = !this.todo.completed;
-        const transaction = this.db.transaction(['todos'], 'readwrite');
-        const objectStore = transaction.objectStore('todos');
-        const request = objectStore.put(this.todo);
-        console.log("this",this.todo);
-        request.onerror = (event) => {
-            console.error('Error updating todo:', event.target.error);
-        };
-        this.requestUpdate(); // Notify Lit about the change
-    }
-
     render() {
         return html`
           <li class="todo">
             <input 
               type="checkbox" 
-              .checked=${this.todo.completed} 
-              @change=${this.toggleTodo}
+							.checked=${this.todo.completed}
+              @change=${this.parentToggleTodo}
             >
             <span style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
               ${this.todo.text}
             </span>
-            <button class="delete-btn" @click=${this.onDelete}>&times;</button> 
+            <button class="delete-btn" @click=${this.parentDeleteTodo}>&times;</button> 
           </li>
         `;
     }

@@ -29,6 +29,7 @@ export class MyApp extends LitElement {
 		this.newTodo = '';
 		this.db = null;
 		this.initDB(); // Initialize IndexedDB
+		//  this.deleteTodo = this.deleteTodo.bind(this); 	
 	}
 
 	initDB() {
@@ -88,9 +89,36 @@ export class MyApp extends LitElement {
 			};
 		}
 	}
+	deleteAllCompleted() {
+		const transaction = this.db.transaction(['todos'], 'readwrite');
+		const objectStore = transaction.objectStore('todos');
+		const request = objectStore.openCursor();
+
+		request.onsuccess = (event) => {
+			const cursor = event.target.result;
+			if (cursor) {
+				const todo = cursor.value;
+				if (todo.completed) {
+					const deleteRequest = cursor.delete();
+					deleteRequest.onsuccess = () => {
+						// Continue to the next item
+						cursor.continue();
+					};
+				} else {
+					cursor.continue();
+				}
+			} else {
+				// All done - reload the todos
+				this.loadTodos();
+			}
+		};
+
+		request.onerror = (event) => {
+			console.error('Error deleting completed todos:', event.target.error);
+		};
+	}
 
 	deleteTodo(id) {
-		console.log("deleteTodo", id);
 		const transaction = this.db.transaction(['todos'], 'readwrite');
 		const objectStore = transaction.objectStore('todos');
 		const request = objectStore.delete(id);
@@ -103,8 +131,29 @@ export class MyApp extends LitElement {
 			console.error('Error deleting todo:', event.target.error);
 		};
 	}
-
+	toggleTodo(id) {
+		const transaction = this.db.transaction(['todos'], 'readwrite');
+		const objectStore = transaction.objectStore('todos');
+		const getRequest = objectStore.get(id);
+		getRequest.onsuccess = (event) => {
+			console.log("getRequest",event.target.result);
+			const item = event.target.result;
+			if (item) {
+				item.completed = !item.completed; // Toggle the property
+				const request = objectStore.put(item); // Update the item in the store
+				request.onsuccess = (event) => {
+					console.log("request",event.target.result);
+					this.loadTodos();
+					// this.requestUpdate(); // Wll only update this component. Not parent delete-all button.
+				}
+				request.onerror = (event) => {
+					console.error('Error updating todo:', event.target.error);
+				};
+			}
+		}
+	}
 	render() {
+		const hasCompletedTasks = this.todos.some(todo => todo.completed); // Check for completed tasks
 		return html`
           <div class="container">
             <h1>Todo List</h1>
@@ -117,14 +166,21 @@ export class MyApp extends LitElement {
             <button @click=${this.addTodo}>Add</button>
 
             <ul>
-              ${this.todos.map((todo, index) => html`
+              ${this.todos.map((todo) => html`
                 <todo-item 
                   .todo=${todo} 
-									.db=${this.db} 
-                  .onDelete=${() => this.deleteTodo(todo.id)} 
+                  .parentDeleteTodo=${() => this.deleteTodo(todo.id)} 
+                  .parentToggleTodo=${() => this.toggleTodo(todo.id)} 
                 ></todo-item>
               `)}
             </ul>
+			      <button 
+      			  @click=${this.deleteAllCompleted} 
+        			?disabled=${!hasCompletedTasks}  
+      			>
+							Delete Completed
+						</button>
+
           </div>
         `;
 	}

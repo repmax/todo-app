@@ -165,7 +165,9 @@ export class MyApp extends LitElement {
               .value=${this.newTodo}
               @input=${(e) => this.newTodo = e.target.value}
             >
-            <button @click=${this.addTodo}>Add</button>
+            <button @click=${this.addTodo}
+						?disabled=${this.newTodo.trim()===''}
+						>Add</button>
 
             <ul>
               ${this.todos.map((todo) => html`

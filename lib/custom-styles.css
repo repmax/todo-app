@@ -115,7 +115,7 @@ h1 {
 }
 
 .info-button:hover svg {
-	stroke: #0366d6;
+	stroke: #ef4444;
 }
 
 .github-link {
@@ -129,7 +129,7 @@ h1 {
 }
 
 .github-link:hover svg {
-	fill: #0366d6;
+	fill: #ef4444;
 }
 
 .container {

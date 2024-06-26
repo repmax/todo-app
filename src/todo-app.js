@@ -6,13 +6,57 @@ import './todo-item.js';
 export class TodoApp extends LitElement {
     static styles = [tailwindStyles,customStyles,
 			css`
-        input[type="text"] {
-          width: 100%;
-          padding: 10px;
-          box-sizing: border-box;
-          border: 1px solid #ccc;
-          margin-bottom: 10px;
-        }
+      .todo-input-container {
+  display: flex;
+  align-items: stretch;
+}
+
+.todo-input-container input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  line-height: 1.5;
+}
+.todo-input-container button{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-width: 2px;
+	}
+	
+
+.delete-completed, .todo-input-container button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+}
+.todo-input-container button {
+}
+
+.delete-completed:hover {
+  background-color: #e0e0e0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.todo-input-container button svg {
+  width: 20px;
+  height: 20px;
+}
+
+
       `];
 
 	static properties = {
@@ -149,19 +193,30 @@ export class TodoApp extends LitElement {
 			}
 		}
 	}
+	handleKeyDown(e) {
+		if (e.key === 'Enter' && this.newTodo.trim() !== '') {
+			e.preventDefault(); // Prevent form submission if within a form
+			this.addTodo();
+		}
+	}
 	render() {
 		const hasCompletedTasks = this.todos.some(todo => todo.completed); // Check for completed tasks
 		return html`
-          <div>
+		<div>
+          <div class="todo-input-container">
             <input 
               type="text" 
               placeholder="Enter a new task..."
               .value=${this.newTodo}
               @input=${(e) => this.newTodo = e.target.value}
+							@keydown=${this.handleKeyDown}
             >
             <button @click=${this.addTodo}
 						?disabled=${this.newTodo.trim()===''}
-						>Add</button>
+						><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg></button></div>
 
             <ul>
               ${this.todos.map((todo) => html`
@@ -172,7 +227,7 @@ export class TodoApp extends LitElement {
                 ></todo-item>
               `)}
             </ul>
-			      <button 
+			      <button class="delete-completed"
       			  @click=${this.deleteAllCompleted} 
         			?disabled=${!hasCompletedTasks}  
       			>

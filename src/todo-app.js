@@ -3,7 +3,7 @@ import tailwindStyles from '../lib/tailwind-styles.css' with { type: 'css' };
 import customStyles from '../lib/custom-styles.css' with { type: 'css' };
 import './todo-item.js';
 
-export class TodoList extends LitElement {
+export class TodoApp extends LitElement {
     static styles = [tailwindStyles,customStyles,
 			css`
         input[type="text"] {
@@ -152,8 +152,7 @@ export class TodoList extends LitElement {
 	render() {
 		const hasCompletedTasks = this.todos.some(todo => todo.completed); // Check for completed tasks
 		return html`
-          <div class="container">
-            <h1 class="text-gray-500">Todo List</h1>
+          <div>
             <input 
               type="text" 
               placeholder="Enter a new task..."
@@ -179,10 +178,9 @@ export class TodoList extends LitElement {
       			>
 							Delete Completed
 						</button>
-
           </div>
         `;
 	}
 }
 
-customElements.define('todo-list', TodoList);
+customElements.define('todo-app', TodoApp);

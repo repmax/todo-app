@@ -5,11 +5,11 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
 				'/manifest.json',
-				'/src/my-app.js',	
-				'/src/todo-list.js',
+				'/src/todo-app.js',
 				'/src/todo-item.js',
         '/lib/lit-all.min.js', 
-        '/lib/tailwind-style.css'
+        '/lib/tailwind-style.css',
+				'/lib/custom-styles.css'
       ]);
     })
   );

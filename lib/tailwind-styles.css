@@ -62,13 +62,12 @@ video {
   .text-gray-800 { color: #1f2937; }
   .ml-auto { margin-left: auto; }
   .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+	.text-md {font-size: 1rem;	line-height: 1.5rem;}
+	.text-sm {font-size: .875rem;	line-height: 1.25rem;}
   .text-red-500 { color: #ef4444; }
+  .text-green-500 { color: #449944; }
   .hover\\:text-red-700:hover { color: #b91c1c; }
 	.text-gray-500 {
     --darkreader-text--tw-text-opacity: 1;
     color: rgb(158, 149, 137);
-}
-.text-sm {
-	font-size: .875rem;
-	line-height: 1.25rem;
 }

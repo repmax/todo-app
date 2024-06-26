@@ -4,60 +4,7 @@ import customStyles from '../lib/custom-styles.css' with { type: 'css' };
 import './todo-item.js';
 
 export class TodoApp extends LitElement {
-    static styles = [tailwindStyles,customStyles,
-			css`
-      .todo-input-container {
-  display: flex;
-  align-items: stretch;
-}
-
-.todo-input-container input[type="text"] {
-  flex-grow: 1;
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-right: none;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  line-height: 1.5;
-}
-.todo-input-container button{
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-	border-width: 2px;
-	}
-	
-
-.delete-completed, .todo-input-container button {
-  padding: 8px 12px;
-  font-size: 16px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1.5;
-}
-.todo-input-container button {
-}
-
-.delete-completed:hover {
-  background-color: #e0e0e0;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.todo-input-container button svg {
-  width: 20px;
-  height: 20px;
-}
-
-
-      `];
+	static styles = [tailwindStyles, customStyles];
 
 	static properties = {
 		todos: { state: true },
@@ -66,11 +13,10 @@ button:disabled {
 
 	constructor() {
 		super();
-		this.todos = []; // Start with an empty array
+		this.todos = []; 
 		this.newTodo = '';
 		this.db = null;
-		this.initDB(); // Initialize IndexedDB
-		//  this.deleteTodo = this.deleteTodo.bind(this); 	
+		this.initDB(); 
 	}
 
 	initDB() {
@@ -88,7 +34,7 @@ button:disabled {
 
 		request.onsuccess = (event) => {
 			this.db = event.target.result;
-			this.loadTodos(); // Load existing todos from the database
+			this.loadTodos();
 		};
 	}
 
@@ -177,13 +123,13 @@ button:disabled {
 		const objectStore = transaction.objectStore('todos');
 		const getRequest = objectStore.get(id);
 		getRequest.onsuccess = (event) => {
-			console.log("getRequest",event.target.result);
+			console.log("getRequest", event.target.result);
 			const item = event.target.result;
 			if (item) {
 				item.completed = !item.completed; // Toggle the property
 				const request = objectStore.put(item); // Update the item in the store
 				request.onsuccess = (event) => {
-					console.log("request",event.target.result);
+					console.log("request", event.target.result);
 					this.loadTodos();
 					// this.requestUpdate(); // Wll only update this component. Not parent delete-all button.
 				}
@@ -212,7 +158,7 @@ button:disabled {
 							@keydown=${this.handleKeyDown}
             >
             <button @click=${this.addTodo}
-						?disabled=${this.newTodo.trim()===''}
+						?disabled=${this.newTodo.trim() === ''}
 						><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="12" y1="5" x2="12" y2="19"></line>
       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -227,11 +173,11 @@ button:disabled {
                 ></todo-item>
               `)}
             </ul>
-			      <button class="delete-completed"
+			      <button class="text-sm delete-completed"
       			  @click=${this.deleteAllCompleted} 
         			?disabled=${!hasCompletedTasks}  
       			>
-							Delete Completed
+							DELETE ALL COMPLETED
 						</button>
           </div>
         `;

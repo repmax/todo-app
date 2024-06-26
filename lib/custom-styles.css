@@ -1,3 +1,54 @@
+
+.todo-input-container {
+  display: flex;
+  align-items: stretch;
+}
+
+.todo-input-container input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  line-height: 1.5;
+}
+.todo-input-container button{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-width: 2px;
+	}
+	
+
+.delete-completed, .todo-input-container button {
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+}
+.delete-completed {
+	margin-top: 6px;
+}
+
+.delete-completed:hover {
+  background-color: #e0e0e0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.todo-input-container button svg {
+  width: 20px;
+  height: 20px;
+}
+
 .modal {
 	display: none;
 	position: fixed;
@@ -5,7 +56,7 @@
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.4);
 }
@@ -14,7 +65,7 @@
 	background-color: #fefefe;
 	margin: 15% auto;
 	padding: 20px;
-	border: 1px solid #888;
+	border: 0px;
 	width: 80%;
 }
 
@@ -59,7 +110,7 @@ h1 {
 
 .info-button svg {
 	fill: none;
-	stroke: #333;
+	stroke: #d5d5d5;
 	transition: stroke 0.3s ease;
 }
 
@@ -73,7 +124,7 @@ h1 {
 }
 
 .github-link svg {
-	fill: #333;
+	fill: #d5d5d5;
 	transition: fill 0.3s ease;
 }
 
@@ -98,3 +149,51 @@ h1 {
 	box-sizing: border-box;
 	font-family: sans-serif;
 }
+
+
+body {
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.container {
+  background-color: #1e1e1e; /* Slightly lighter background for the container */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.todo-input-container input[type="text"] {
+  background-color: #2b2b2b; /* Dark input background */
+  border: 1px solid #555; /* Darker border */
+  color: #e0e0e0;
+}
+
+.todo-input-container button,
+.delete-completed {
+  background-color: #333; /* Dark button background */
+  border: 1px solid #555; /* Darker border */
+  color: #e0e0e0;
+}
+
+.delete-completed:hover {
+  background-color: #444; /* Slightly lighter on hover */
+}
+
+.modal-content {
+  background-color: #252525; /* Dark modal background */
+  color: #e0e0e0;
+}
+
+.close {
+  color: #e0e0e0;
+}
+
+h2 {
+  color: #e0e0e0;
+}
+
+/* You can customize further to your liking */

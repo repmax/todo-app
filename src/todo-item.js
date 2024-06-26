@@ -32,14 +32,15 @@ export class TodoItem extends LitElement {
         return html`
           <li class="todo">
             <input 
+							style="accent-color:green"
               type="checkbox" 
 							.checked=${this.todo.completed}
               @change=${this.parentToggleTodo}
             >
-            <span class="${!this.todo.completed ? 'text-red-500' : ''}" style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
+            <span class="${!this.todo.completed ? 'text-red-500' : 'text-green-500'}" style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
               ${this.todo.text}
             </span>
-            <button class="delete-btn" @click=${this.parentDeleteTodo}>&times;</button> 
+            <button class="delete-btn" style="color:red" @click=${this.parentDeleteTodo}>&times;</button> 
           </li>
         `;
     }

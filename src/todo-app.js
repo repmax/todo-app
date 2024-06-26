@@ -173,11 +173,12 @@ export class TodoApp extends LitElement {
                 ></todo-item>
               `)}
             </ul>
-			      <button class="text-sm delete-completed"
-      			  @click=${this.deleteAllCompleted} 
+			      <button class="delete-completed"
+      			  @click=${this.deleteAllCompleted}
         			?disabled=${!hasCompletedTasks}  
-      			>
-							DELETE ALL COMPLETED
+      			><span class="text-sm text-green-500">
+						DELETE ALL COMPLETED
+						</span>
 						</button>
           </div>
         `;

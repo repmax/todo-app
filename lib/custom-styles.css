@@ -41,7 +41,7 @@
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.3;
 }
 
 .todo-input-container button svg {
@@ -87,7 +87,7 @@ button:disabled {
 .icon-container {
 	position: absolute;
 	top: 8px;
-	right: 0;
+	right: 10px;
 	display: flex;
 	align-items: center;
 }
@@ -140,6 +140,9 @@ h1 {
 	margin: 0 auto;
 	box-sizing: border-box;
 	font-family: sans-serif;
+  background-color: #1e1e1e; 
+  border-radius: 8px;
+  padding: 15px;
 }
 
 .modal-content {
@@ -152,39 +155,33 @@ h1 {
 
 
 body {
-  background-color: #121212; /* Dark background */
-  color: #e0e0e0; /* Light text */
+  background-color: #121212;
+  color: #e0e0e0; 
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
 }
 
-.container {
-  background-color: #1e1e1e; /* Slightly lighter background for the container */
-  border-radius: 8px;
-  padding: 20px;
-}
-
 .todo-input-container input[type="text"] {
-  background-color: #2b2b2b; /* Dark input background */
-  border: 1px solid #555; /* Darker border */
+  background-color: #2b2b2b; 
+  border: 1px solid #555; 
   color: #e0e0e0;
 }
 
 .todo-input-container button,
 .delete-completed {
-  background-color: #333; /* Dark button background */
-  border: 1px solid #555; /* Darker border */
+  background-color: #333; 
+  border: 1px solid #555; 
   color: #e0e0e0;
 }
 
 .delete-completed:hover {
-  background-color: #444; /* Slightly lighter on hover */
+  background-color: #444; 
 }
 
 .modal-content {
-  background-color: #252525; /* Dark modal background */
+  background-color: #252525; 
   color: #e0e0e0;
 }
 
@@ -195,5 +192,3 @@ body {
 h2 {
   color: #e0e0e0;
 }
-
-/* You can customize further to your liking */

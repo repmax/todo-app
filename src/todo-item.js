@@ -37,7 +37,7 @@ export class TodoItem extends LitElement {
 							.checked=${this.todo.completed}
               @change=${this.parentToggleTodo}
             >
-            <span class="${!this.todo.completed ? 'text-red-500' : 'text-green-500'}" style="${this.todo.completed ? 'text-decoration: line-through;' : ''}">
+            <span class="${!this.todo.completed ? 'text-red-500' : 'text-green-500'}">
               ${this.todo.text}
             </span>
             <button class="delete-btn" style="color:red" @click=${this.parentDeleteTodo}>&times;</button> 

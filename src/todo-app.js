@@ -152,7 +152,7 @@ export class TodoApp extends LitElement {
           <div class="todo-input-container">
             <input 
               type="text" 
-              placeholder="Enter a new task..."
+              placeholder="Enter task..."
               .value=${this.newTodo}
               @input=${(e) => this.newTodo = e.target.value}
 							@keydown=${this.handleKeyDown}

@@ -5,7 +5,9 @@
 }
 
 .todo-input-container input[type="text"] {
-  flex-grow: 1;
+  flex: 1, 1, auto;
+	min-width: 100px; 
+	width:100%;
   padding: 8px 12px;
   font-size: 16px;
   border: 1px solid #ccc;

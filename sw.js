@@ -1,4 +1,3 @@
-/*
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('todo-cache').then((cache) => {
@@ -23,4 +22,3 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-*/

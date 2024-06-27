@@ -165,7 +165,7 @@ export class TodoApp extends LitElement {
     </svg></button></div>
 
             <ul>
-              ${this.todos.map((todo) => html`
+              ${this.todos.slice().reverse().map((todo) => html`
                 <todo-item 
                   .todo=${todo} 
                   .parentDeleteTodo=${() => this.deleteTodo(todo.id)} 

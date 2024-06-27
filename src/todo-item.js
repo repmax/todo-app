@@ -12,7 +12,7 @@ export class TodoItem extends LitElement {
           border-bottom: 1px solid #ccc;
         }
         .todo input[type="checkbox"] {
-          margin-right: 10px;
+          margin-right: 5px;
         }
         .delete-btn {
           margin-left: auto; 
@@ -37,7 +37,7 @@ export class TodoItem extends LitElement {
 							.checked=${this.todo.completed}
               @change=${this.parentToggleTodo}
             >
-            <span class="${!this.todo.completed ? 'text-red-500' : 'text-green-500'}">
+            <span class="${!this.todo.completed ? '' : 'text-green-500'}">
               ${this.todo.text}
             </span>
             <button class="delete-btn" style="color:red" @click=${this.parentDeleteTodo}>&times;</button> 
